@@ -12,6 +12,7 @@
     <artifactId>ark-dynamic-master</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>io.sofastack.guides</groupId>
             <artifactId>ark-dynamic-facade</artifactId>
@@ -26,17 +27,17 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>sofa-ark-springboot-starter</artifactId>
         </dependency>
-
+        <!--web应用依赖-->
         <dependency>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>web-ark-plugin</artifactId>
         </dependency>
-
+        <!--web应用依赖-->
         <dependency>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>runtime-sofa-boot-plugin</artifactId>
         </dependency>
-
+        <!--ark容器依赖-->
         <dependency>
             <groupId>com.alipay.sofa</groupId>
             <artifactId>sofa-ark-container</artifactId>
@@ -48,6 +49,38 @@
             <artifactId>healthcheck-sofa-boot-starter</artifactId>
         </dependency>
 
+        <!--        插件引入-->
+        <dependency>
+            <groupId>io.sofastack.guides</groupId>
+            <artifactId>storage-disk</artifactId>
+            <classifier>ark-plugin</classifier>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.sofastack.guides</groupId>
+            <artifactId>storage-mysql</artifactId>
+            <classifier>ark-plugin</classifier>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.sofastack.guides</groupId>
+            <artifactId>use-storage</artifactId>
+            <classifier>ark-plugin</classifier>
+            <version>1.0.0</version>
+        </dependency>
+        <!--biz层引入-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.sofastack.guides</groupId>-->
+        <!--            <artifactId>ark-dynamic-module</artifactId>-->
+        <!--            <version>1.0.0</version>-->
+        <!--            <classifier>biz</classifier>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.linewell.license</groupId>-->
+        <!--            <artifactId>generator-ark-deploy</artifactId>-->
+        <!--            <version>1.0.0-SNAPSHOT</version>-->
+        <!--            <classifier>biz</classifier>-->
+        <!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -62,12 +95,26 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+
                     </execution>
                 </executions>
                 <configuration>
+                    <!-- biz优先级，数字低的优先级高，优先级高的优先被容器加载启动-->
+                    <priority>100</priority>
+                    <!-- 指定打包的 biz包存放目录; 默认放在 ${project.build.directory} -->
                     <outputDirectory>../target</outputDirectory>
-                    <baseDir>../</baseDir>
-                    <webContextPath>/master</webContextPath>
+                    <baseDir>./</baseDir>
+                    <!-- biz默认会同时打出一个executable包，设置该项为true表示跳过executable打包-->
+                    <skipArkExecutable>true</skipArkExecutable>
+                    <!-- biz默认会同时打出一个executable包，设置该项为true表示跳过executable打包-->
+                    <webContextPath>/</webContextPath>
+                    <!-- biz的名字-->
+                    <bizName>master</bizName>
+
+                    <!-- 是否把 biz包 安装、发布到仓库，默认为true -->
+                    <attach>true</attach>
+                    <!-- biz的Classifier名-->
+                    <bizClassifier>biz</bizClassifier>
                 </configuration>
             </plugin>
         </plugins>

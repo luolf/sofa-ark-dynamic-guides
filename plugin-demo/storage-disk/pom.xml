@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>plugin-demo</artifactId>
+        <groupId>io.sofastack.guides</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.sofastack.guides</groupId>
+    <artifactId>storage-disk</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.sofastack.guides</groupId>
+            <artifactId>common-facade</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-ark-spi</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-ark-plugin-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>ark-plugin</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 配置信息 -->
+                    <!-- 指定打包的 ${pluginName}.ark.plugin 存放目录; 默认放在 ${project.build.directory} -->
+                    <outputDirectory>./</outputDirectory>
+
+                    <!-- 是否把 ark plugin 安装、发布到仓库，默认为true -->
+                    <attach>true</attach>
+
+                    <!-- ark plugin 最多仅能指定一个 com.alipay.sofa.ark.spi.service.PluginActivator 接口实现类 -->
+                    <activator>llf.MyPluginActivator</activator>
+
+                    <!-- 配置优先级，数字越小，优先级越高，优先启动，优先导出类，默认1000 -->
+                    <priority>1100</priority>
+
+                    <!-- 配置插件的名字，务必配置对，运行时，是插件的唯一标识 ID。比如 sofa-rpc 插件，可以配置为 sofa-rpc; 默认为 ${artifactId} -->
+                    <pluginName>disk-storage</pluginName>
+
+                    <!--设置 ark plugin 的 classifier, 默认为空, 如非必要，建议不用设置-->
+                    <classifier>ark-plugin</classifier>
+                    <!-- 配置导出类、资源 -->
+                    <exported>
+                        <!-- 配置包级别导出的类 -->
+<!--                        <packages>-->
+<!--                            <package>com.alipay.sofa.ark.service</package>-->
+<!--                        </packages>-->
+
+                        <!-- 配置类级别导出类 -->
+                        <classes>
+                            <class>llf.export.DiskSize</class>
+                            <class>llf.SayHi</class>
+                            <class>llf.impl.SayHiImplDisk</class>
+                            <class>llf.service.MyName</class>
+                            <class>llf.common.facade.PluginInfoFacade</class>
+                        </classes>
+
+                        <!-- 配置 ark plugin 对外导出的资源 -->
+<!--                        <resources>-->
+<!--                            <resource>META-INF/spring/bean.xml</resource>>-->
+<!--                        </resources>-->
+                    </exported>
+                    <!-- 配置导入类、资源 -->
+                    <imported>
+                        <!-- 配置需要优先从其他 ark plugin 加载的 package -->
+<!--                        <packages>-->
+<!--                            <package>javax.servlet</package>-->
+<!--                            <package>org.springframework.*</package>-->
+<!--                        </packages>-->
+
+                        <!-- 配置需要优先从其他 ark plugin 加载的 class -->
+                        <classes>
+                            <class>org.llf.export.MysqlSize</class>
+                        </classes>
+
+                        <!-- 配置需要优先从其他 ark plugin 加载的资源 -->
+<!--                        <resources>-->
+<!--                            <resource>META-INF/spring/bean.xml</resource>>-->
+<!--                        </resources>-->
+                    </imported>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

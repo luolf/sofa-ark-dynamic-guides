@@ -13,6 +13,7 @@
 3、启动宿主应用
 
 > java -jar target/ark-dynamic-master-1.0.0-ark-executable.jar
+java -jar target/cfc-deploy-mini-1.4.1-ark-executable.jar
 
 
 4、验证宿主 rest 请求
@@ -23,7 +24,7 @@
 
 > telnet localhost 1234
 
-> biz -i file://biz -i file:///${your-path}/sofa-ark-dynamic-guides/target/ark-dynamic-module-1.0.0-ark-biz.jar
+> biz -i  file:///${your-path}/sofa-ark-dynamic-guides/target/ark-dynamic-module-1.0.0-ark-biz.jar
 
 > biz -a #通过 biz -a 查看，如果两个模块都是 activited 状态，则继续
 

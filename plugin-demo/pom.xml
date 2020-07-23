@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sofa-ark-dynamic-guides</artifactId>
+        <groupId>io.sofastack.guides</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.sofastack.guides</groupId>
+    <artifactId>plugin-demo</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>storage-mysql</module>
+        <module>storage-disk</module>
+        <module>use-storage</module>
+        <module>common-facade</module>
+    </modules>
+
+    <!--私有库配置开始-->
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>http://192.168.203.132:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://192.168.203.132:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
